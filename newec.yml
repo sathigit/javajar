@@ -1,0 +1,13 @@
+EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+        ImageId: !FindInMap [ AWSRegionArch2AMI, !Ref 'AWS::Region' , !FindInMap [ AWSInstanceType2Arch, !Ref InstanceType, Arch ] ]
+        KeyName: !Ref KeyName
+        InstanceType: !Ref InstanceType
+        SecurityGroups:
+        - !Ref Myweb-DMZ
+        BlockDeviceMappings:
+        -
+          DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 8
